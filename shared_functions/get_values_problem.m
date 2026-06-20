@@ -132,7 +132,6 @@ function result = get_values_problem(problem_str)
 		f1 = @(y,z) 2*y(1)*y(2)*z(1)*z(2);
 		f2 = @(y,z) -y(1)*y(2)*z(2)^2;
 		f = @(y,z) [f1(y,z); f2(y,z)];
-		%f = @(y,z) [2*y(1)*y(2)*z(1)*z(2); -y(1)*y(2)*z(2)^2];
 		k = @(y,z,u) [(y(1)*y(2)+z(1)*z(2))*u; -y(1)*y(2)^2*z(2)^3*u^2];
 		g = @(y) y(1)*y(2)^2-1;
 
@@ -173,16 +172,6 @@ function result = get_values_problem(problem_str)
 
 		% non-constant mass matrix
 		M = @(y) [y(1) y(2)-exp(-2*y(3)); sin(y(1)-exp(y(3))) y(1)*y(2)];
-		%Minv = @(y) inv(M(y));
-
-		%detM = @(y) y(1)^2*y(2) + (y(2)-exp(-2*y(3)))*sin(exp(y(3))-y(1));
-		%Minv = @(y) (1/detM(y)) * [y(1)*y(2) -y(2)+exp(-2*y(3)); sin(exp(y(3))-y(1)) y(1)];
-
-		% exact solution for M
-		%M = @(y) [exp(y(3)) 0; 0 exp(-y(3))];
-		%Minv = @(y) [exp(-y(3)) 0; 0 exp(y(3))];
-		%M = @(y) eye(2);
-		%Minv = @(y) eye(2);
 
 		psi1 = @(t) exp(t);
 
@@ -190,9 +179,6 @@ function result = get_values_problem(problem_str)
 		k = @(y,z,u) M(y) \ [exp(y(3))*(y(1)*z(2)+2*y(2)*z(1))+exp(2*y(3))*y(1)*u-y(1)*z(2)*psi1(y(3))-2;
 			exp(-y(3))*((1/2)*y(2)*z(2)-2*y(1)*z(1)*y(2)*z(2)+y(2)*u^2)-y(1)*y(2)*z(1)*psi1(y(3))^3+exp(3*y(3))];
 		g = @(y) y(1)^2*y(2)-1;
-
-		%k = @(y,z,u) Minv(y) * [exp(y(3))*(y(1)*z(2)+2*y(2)*z(1))+exp(2*y(3))*y(1)*u-y(1)*z(2)*psi1(y(3))-2;
-		%	exp(-y(3))*((1/2)*y(2)*z(2)-2*y(1)*z(1)*y(2)*z(2)+y(2)*u^2)-y(1)*y(2)*z(1)*psi1(y(3))^3+exp(3*y(3))];
 
 		dfdy = @(y,z) zeros(3);
 		dfdz = @(y,z) [eye(2); zeros(1,2)];
@@ -219,7 +205,6 @@ function result = get_values_problem(problem_str)
 		dkdz = @(y,z,u) (1/(2*(exp(3*y(3))*y(1)^2*y(2) + exp(y(3))*(-1 + exp(2*y(3))*y(2))*sin(exp(y(3)) - y(1))))) * [dk1dz1(y,z,u) dk1dz2(y,z,u); dk2dz1(y,z,u) dk2dz2(y,z,u)];
 
 		dkdu = @(y,z,u) M(y) \ [y(1)*exp(2*y(3)); 2*y(2)*exp(-y(3))*u];
-		%dkdu = @(y,z,u) Minv(y)*[y(1)*exp(2*y(3)); 2*y(2)*exp(-y(3))*u];
 
 		dgdy = @(y) [2*y(1)*y(2) y(1)^2 0];
 
@@ -232,7 +217,6 @@ function result = get_values_problem(problem_str)
 		% second hidden manifold and its derivative with respect to u
 		C = @(y,z,u) gyyff(y,z) + dgdy(y)*dfdz(y,z)*k(y,z,u);
 		dCdu = @(y,z,u) [2*y(1)*y(2) y(1)^2]*(M(y) \ [y(1)*exp(2*y(3)); 2*y(2)*exp(-y(3))*u]);
-		%dCdu = @(y,z,u) [2*y(1)*y(2) y(1)^2]*(Minv(y)*[y(1)*exp(2*y(3)); 2*y(2)*exp(-y(3))*u]);
 
 	elseif strcmpi(problem_str, 'linear')
 
