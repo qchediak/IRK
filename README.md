@@ -6,6 +6,8 @@ The MATLAB files in this repository illustrate and verify the analytical results
 
 The code includes implementations of implicit Runge-Kutta (IRK) methods and partitioned Runge-Kutta (PRK) methods used to solve autonomous ordinary differential equations (ODEs) and index 3 differential-algebraic equations (DAEs); specifically, autonomous semi-explicit index 3 DAEs in Hessenberg form.  It also contains numerical experiments investigating the order of starting approximations for the nonlinear systems arising in these methods.
 
+This code includes implementations of Newton's method and the simplified Newton method for solving nonlinear systems. As a third option, it can interface with `nsold`, a nonlinear solver developed by C. T. Kelley, through the `kelley` option.  Users wishing to use `nsold` should obtain it separately.
+
 ## Repository Structure
 
 - `solve_ODE`: Solves ODEs by an IRK method.
