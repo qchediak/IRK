@@ -43,8 +43,8 @@ iterative_scheme1 = 'simplified newton';
 %iterative_scheme1 = 'simplified newton 3';
 %iterative_scheme1 = 'kelley';
 %iterative_scheme2 = 'newton';
-%iterative_scheme2 = 'simplified newton';
-iterative_scheme2 = 'kelley';
+iterative_scheme2 = 'simplified newton';
+%iterative_scheme2 = 'kelley';
 
 % -------
 % Problem
